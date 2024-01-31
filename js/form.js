@@ -33,7 +33,7 @@ function updateAdress(data) {
         uf.value=(data.uf);
         mensagem.innerHTML = '';
     } else {
-        mensagem.innerHTML = `CEP não encontrado`;
+        alert(`CEP não encontrado`);
     }
 }
 
@@ -70,3 +70,16 @@ form.addEventListener('submit', function(event){
     // if(msg.length == 0)  form.submit();
 
 });
+
+cep.addEventListener("focusout",()=>{
+    console.log("OI")
+    const isCEP = validaCEP(cep);
+    if(isCEP.length > 0) {
+        console.log("Nao")
+    } else {  
+        const script = document.createElement('script');
+        script.src = 'https://viacep.com.br/ws/' + cep.value + '/json?callback=updateAdress';
+        console.log(script.cep)
+        document.body.appendChild(script);
+    }
+})
